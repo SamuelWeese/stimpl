@@ -24,7 +24,6 @@ class State(object):
 
     def get_value(self, variable_name) -> Any:
         """ TODO: Implement. """
-        return None
         return State
 
     def __repr__(self) -> str:
@@ -126,6 +125,7 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
 
         case Subtract(left=left, right=right):
             """ TODO: Implement. """
+            return left - right
             pass
 
         case Multiply(left=left, right=right):
