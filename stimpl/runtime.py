@@ -79,6 +79,7 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (printable_value, printable_type, new_state)
 
         case Sequence(exprs=exprs) | Program(exprs=exprs):
+
             """ TODO: Implement. """
             pass
 
@@ -125,7 +126,7 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
 
         case Subtract(left=left, right=right):
             """ TODO: Implement. """
-            return left - right
+            raise InterpTypeError("Invalid")
             pass
 
         case Multiply(left=left, right=right):
