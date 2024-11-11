@@ -84,6 +84,8 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (printable_value, printable_type, new_state)
 
         case Sequence(exprs=exprs) | Program(exprs=exprs):
+            print("SEQUENCING")
+            print(exprs)
             # TODO COMMENT I THINK THIS IS WRONG
             last_value, last_type = None, Unit()
             for expr in exprs:
