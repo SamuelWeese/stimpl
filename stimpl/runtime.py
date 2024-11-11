@@ -222,6 +222,8 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             expr_value, expr_type, new_state = evaluate(expr, state)
             if expr_type != Boolean():
                 raise InterpTypeError("Cannot Not this Not.")
+            if expr_value == None:
+                return (None, Boolean(), new_state)
             print("DEBUG 2!!!")
             return (not expr_value, Boolean(), new_state)
 
