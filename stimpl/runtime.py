@@ -224,15 +224,13 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (not expr_value, Boolean(), new_state)
 
         case If(condition=condition, true=true, false=false):
-            print("NO, DON'T HELP HIM, HE IS NOT WORTHY")
-            if true != Boolean() or false != Boolean:
-                raise InterpError("Cannot verify the truthiness of these worldviews.")
-            
             condition_value, condition_type, new_state = evaluate(condition, saved_off_state)
             if condition_type != Boolean():
                 raise InterpTypeError("Cannot apply 'not' to non-boolean type.")
-            
-            return (condition_value, Boolean(), new_state)
+            if (condition_value):
+                return (true, Boolean(), new_state)
+            else:
+                return (false, Boolean(), new_state)
 
         case Lt(left=left, right=right):
             left_value, left_type, new_state = evaluate(left, state)

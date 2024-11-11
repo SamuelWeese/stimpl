@@ -296,7 +296,7 @@ def run_stimpl_sanity_tests():
         except Exception as e:
             if not isinstance(e, InterpSyntaxError):
                 raise e
-        # Make sure that sequences work in the proper order (10 pts)
+        # Make sure that sequences work in the proper order (100 pts)
         # i = 0
         # j = (i = i + 1)
         # k = (i = i + 1)
