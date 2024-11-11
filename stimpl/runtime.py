@@ -283,7 +283,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (result, Boolean(), new_state)
 
         case Gt(left=left, right=right):
-            print("gt IS GO")
             """ TODO: Implement. """
             left_value, left_type, new_state = evaluate(left, state)
             right_value, right_type, new_state = evaluate(right, new_state)
@@ -302,12 +301,10 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
                 case _:
                     raise InterpTypeError(
                         f"Cannot perform < on {left_type} type.")
-            print("GT IS GO")
             return (result, Boolean(), new_state)
 
 
         case Gte(left=left, right=right):
-            print("gte IS GO")
             """ TODO: Implement. """
             left_value, left_type, new_state = evaluate(left, state)
             right_value, right_type, new_state = evaluate(right, new_state)
@@ -328,11 +325,9 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
                 case _:
                     raise InterpTypeError(
                         f"Cannot perform < on {left_type} type.")
-            print("gte IS GO")
             return (result, Boolean(), new_state)
 
         case Eq(left=left, right=right):
-            print("EQ IS GO")
             """ TODO: Implement. """
             left_value, left_type, new_state = evaluate(left, state)
             right_value, right_type, new_state = evaluate(right, new_state)
@@ -353,11 +348,9 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
                 case _:
                     raise InterpTypeError(
                         f"Cannnot perform < on {left_type} type.")
-            print("eq IS GO")
             return (result, Boolean(), new_state)
 
         case Ne(left=left, right=right):
-            print("NQ IS GO")
             """ TODO: Implement. """
             left_value, left_type, new_state = evaluate(left, state)
             right_value, right_type, new_state = evaluate(right, new_state)
@@ -376,7 +369,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
                 case _:
                     raise InterpTypeError(
                         f"Cannot perform < on {left_type} type.")
-            print("ne IS GO")
             return (result, Boolean(), new_state)
 
         case While(condition=condition, body=body):
