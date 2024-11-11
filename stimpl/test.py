@@ -162,6 +162,7 @@ def run_stimpl_sanity_tests():
         check_run_result((False, Boolean(), None), run_stimpl(program))
         program = Not(BooleanLiteral(False))
         check_run_result((True, Boolean(), None), run_stimpl(program))
+        print("AH HELL NAH")
 
         program = Lt(Ren(), Ren())
         check_run_result((False, Boolean(), None), run_stimpl(program))
