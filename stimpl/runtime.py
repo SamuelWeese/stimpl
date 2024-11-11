@@ -217,16 +217,21 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
         case Not(expr=expr):
             # TODO COMMENT
             # Opposite of this should be If, right?
+            # BUT THE INTERFACE DOESN"T MATCH!!!
             expr_value, expr_type, new_state = evaluate(expr, state)
             if expr_type != Boolean():
-                raise InterpTypeError("Cannot apply 'not' to non-boolean type.")
+                raise InterpTypeError("Cannot Not this Not.")
             return (not expr_value, Boolean(), new_state)
 
         case If(condition=condition, true=true, false=false):
-            expr_value, expr_type, new_state = evaluate(expr, state)
-            if expr_type != Boolean():
+            if true != Boolean() or false != Boolean:
+                raise InterpError("Cannot verify the truthiness of these worldviews.")
+            
+            condition_value, condition_type, new_state = evaluate(condition, saved_off_state)
+            if condition_type != Boolean():
                 raise InterpTypeError("Cannot apply 'not' to non-boolean type.")
-            return (expr_value, Boolean(), new_state)
+            
+            return (condition_value, Boolean(), new_state)
 
         case Lt(left=left, right=right):
             left_value, left_type, new_state = evaluate(left, state)
