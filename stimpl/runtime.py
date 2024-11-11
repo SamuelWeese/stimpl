@@ -23,6 +23,7 @@ class State(object):
         return State(variable_name, variable_value, variable_type, self)
 
     def get_value(self, variable_name) -> Any:
+        # TODO Comment
         current_state = self
         while current_state:
             if current_state.variable_name == variable_name:
@@ -83,6 +84,7 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (printable_value, printable_type, new_state)
 
         case Sequence(exprs=exprs) | Program(exprs=exprs):
+            # TODO COMMENT
             last_value, last_type = None, Unit()
             for expr in exprs:
                 last_value, last_type, state = evaluate(expr, state)
@@ -344,8 +346,17 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
                         f"Cannot perform < on {left_type} type.")
 
         case While(condition=condition, body=body):
-            """ TODO: Implement. """
-            pass
+            saved_off_state = state
+            # TODO COMMENT, specifically why we just cheat this with true
+            #(conditions are hard)
+            while True:
+                condition_value, condition_type, new_state = evaluate(condition, saved_off_state)
+                if condition_type != Boolean():
+                    raise InterpTypeError("Hey silly! Conditions which aren't boolean can't terminate!")
+                if not condition_value:
+                    break
+                ignorable_value_1, ignorable_value_2, saved_off_state = evaluate(body,  saved_off_state)
+            return (None, Unit(), saved_off_state)
 
         case _:
             raise InterpSyntaxError("Unhandled!")
