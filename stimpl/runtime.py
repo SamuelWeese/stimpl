@@ -23,8 +23,12 @@ class State(object):
         return State(variable_name, variable_value, variable_type, self)
 
     def get_value(self, variable_name) -> Any:
-        """ TODO: Implement. """
-        return State
+        current_state = self
+        while current_state:
+            if current_state.variable_name == variable_name:
+                return current_state.value
+            current_state = current_state.next_state
+        return None
 
     def __repr__(self) -> str:
         return f"{self.variable_name}: {self.value}, " + repr(self.next_state)
@@ -125,7 +129,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (result, left_type, new_state)
 
         case Subtract(left=left, right=right):
-            """ TODO: Implement. """
             result = 0
             left_result, left_type, new_state = evaluate(left, state)
             right_result, right_type, new_state = evaluate(right, new_state)
@@ -143,7 +146,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (result, left_type, new_state)
 
         case Multiply(left=left, right=right):
-            """ TODO: Implement. """
             result = 0
             left_result, left_type, new_state = evaluate(left, state)
             right_result, right_type, new_state = evaluate(right, new_state)
@@ -161,7 +163,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (result, left_type, new_state)
 
         case Divide(left=left, right=right):
-            """ TODO: Implement. """
             result = 0
             left_result, left_type, new_state = evaluate(left, state)
             right_result, right_type, new_state = evaluate(right, new_state)
@@ -210,42 +211,13 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
 
             return (result, left_type, new_state)
 
-
         case Not(expr=expr):
-            print("DEBUG 1")
-            left_value, left_type, new_state = evaluate(left, state)
-            right_value, right_type, new_state = evaluate(right, new_state)
-
-            if left_type != right_type:
-                raise InterpTypeError(f"""Mismatched types for And:
-            Cannot evaluate {left_type} and {right_type}""")
-            match left_type:
-                case Boolean():
-                    result = left_value is not right_value
-                case _:
-                    raise InterpTypeError(
-                        "Cannot perform logical and on non-boolean operands.")
-
-            return (result, left_type, new_state)
-
+            """ TODO: Implement. """
+            pass
 
         case If(condition=condition, true=true, false=false):
             """ TODO: Implement. """
-            print("DEBUG 2")
-            left_value, left_type, new_state = evaluate(left, state)
-            right_value, right_type, new_state = evaluate(right, new_state)
-
-            if left_type != right_type:
-                raise InterpTypeError(f"""Mismatched types for And:
-            Cannot evaluate {left_type} and {right_type}""")
-            match left_type:
-                case Boolean():
-                    result = left_value.__eq__(right_value)
-                case _:
-                    raise InterpTypeError(
-                        "Cannot perform logical and on non-boolean operands.")
-
-            return (result, left_type, new_state)
+            pass
 
 
         case Lt(left=left, right=right):
