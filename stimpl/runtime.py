@@ -265,7 +265,8 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             if left_type != right_type:
                 raise InterpTypeError(f"""Mismatched types for Lt:
             Cannot compare {left_type} and {right_type}""")
-
+            if left_value == None and right_value == None:
+                return True
             match left_type:
                 case Integer() | String() | FloatingPoint():
                     result = left_value <= right_value
