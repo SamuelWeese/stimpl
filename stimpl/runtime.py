@@ -126,7 +126,11 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
 
         case Subtract(left=left, right=right):
             """ TODO: Implement. """
-            raise InterpTypeError("Invalid")
+            if type(left) is not (int or float):
+                raise InterpTypeError("Invalid type!")
+            if type(left) is not (int or float):
+                raise InterpTypeError("Invalid type!")
+            return left - right
             pass
 
         case Multiply(left=left, right=right):
