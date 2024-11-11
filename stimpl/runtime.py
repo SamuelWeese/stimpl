@@ -271,7 +271,7 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
                 case Integer() | String() | FloatingPoint():
                     result = left_value <= right_value
                 case Boolean():
-                    result = left_value < right_value
+                    result = left_value == right_value
                 case Unit():
                     result = False
                 case _:
