@@ -220,6 +220,9 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             # BUT THE INTERFACE DOESN"T MATCH!!!
             print("DEBUG ME PLS HELP")
             expr_value, expr_type, new_state = evaluate(expr, state)
+            print(expr_value)
+            print(expr_type)
+            print(new_state)
             if expr_type != Boolean():
                 raise InterpTypeError("Cannot Not this Not.")
             if expr_value == None:
