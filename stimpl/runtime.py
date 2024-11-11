@@ -257,10 +257,8 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
 
         case Lte(left=left, right=right):
             """ TODO: Implement. """
-            print("LTE IS GO")
             left_value, left_type, new_state = evaluate(left, state)
             right_value, right_type, new_state = evaluate(right, new_state)
-            print("LTE IS GO 2")
 
             result = None
 
@@ -319,6 +317,8 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             if left_type != right_type:
                 raise InterpTypeError(f"""Mismatched types for Lt:
             Cannot compare {left_type} and {right_type}""")
+            if left_value == None and right_value == None:
+                return (True, Boolean(), new_state)
 
             match left_type:
                 case Integer() | Boolean() | String() | FloatingPoint():
@@ -342,6 +342,8 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             if left_type != right_type:
                 raise InterpTypeError(f"""Mismatched types for Lt:
             Cannot compare {left_type} and {right_type}""")
+            if left_value == None and right_value == None:
+                return (True, Boolean(), new_state)
 
             match left_type:
                 case Integer() | Boolean() | String() | FloatingPoint():
