@@ -354,6 +354,7 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             saved_off_state = state
             # TODO COMMENT, specifically why we just cheat this with true
             #(conditions are hard)
+            iterations = 1
             while True:
                 condition_value, condition_type, new_state = evaluate(condition, saved_off_state)
                 if condition_type != Boolean():
@@ -361,6 +362,10 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
                 if not condition_value:
                     break
                 ignorable_value_1, ignorable_value_2, saved_off_state = evaluate(body,  saved_off_state)
+                iterations = iterations + 1
+                if iterations > 1000:
+                    print("FUCK")
+                    break
             return (None, Unit(), saved_off_state)
 
         case _:
