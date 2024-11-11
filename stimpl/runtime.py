@@ -268,13 +268,15 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             Cannot compare {left_type} and {right_type}""")
 
             match left_type:
-                case Integer() | Boolean() | String() | FloatingPoint():
+                case Integer() | String() | FloatingPoint():
                     result = left_value <= right_value
+                case Boolean():
+                    result = left_value < right_value
                 case Unit():
                     result = False
                 case _:
                     raise InterpTypeError(
-                        f"Cannot perform < on {left_type} type.")
+                        f"Cannot perform <= on {left_type} type.")
             print("LTE IS GO")
             return (result, Boolean(), new_state)
 
