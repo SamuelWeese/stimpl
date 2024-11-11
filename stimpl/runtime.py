@@ -126,20 +126,57 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
 
         case Subtract(left=left, right=right):
             """ TODO: Implement. """
-            if type(left) is not (int or float):
-                raise InterpTypeError("Invalid type!")
-            if type(left) is not (int or float):
-                raise InterpTypeError("Invalid type!")
-            return left - right
-            pass
+            result = 0
+            left_result, left_type, new_state = evaluate(left, state)
+            right_result, right_type, new_state = evaluate(right, new_state)
+
+            if left_type != right_type:
+                raise InterpTypeError(f"""Mismatched types for Add:
+            Cannot add {left_type} to {right_type}""")
+
+            match left_type:
+                case Integer() | String() | FloatingPoint():
+                    result = left_result - right_result
+                case _:
+                    raise InterpTypeError(f"""Cannot add {left_type}s""")
+
+            return (result, left_type, new_state)
 
         case Multiply(left=left, right=right):
             """ TODO: Implement. """
-            pass
+            result = 0
+            left_result, left_type, new_state = evaluate(left, state)
+            right_result, right_type, new_state = evaluate(right, new_state)
+
+            if left_type != right_type:
+                raise InterpTypeError(f"""Mismatched types for Add:
+            Cannot add {left_type} to {right_type}""")
+
+            match left_type:
+                case Integer() | FloatingPoint():
+                    result = left_result * right_result
+                case _:
+                    raise InterpTypeError(f"""Cannot add {left_type}s""")
+
+            return (result, left_type, new_state)
 
         case Divide(left=left, right=right):
             """ TODO: Implement. """
-            pass
+            result = 0
+            left_result, left_type, new_state = evaluate(left, state)
+            right_result, right_type, new_state = evaluate(right, new_state)
+
+            if left_type != right_type:
+                raise InterpTypeError(f"""Mismatched types for Add:
+            Cannot add {left_type} to {right_type}""")
+
+            match left_type:
+                case Integer() | String() | FloatingPoint():
+                    result = left_result / right_result
+                case _:
+                    raise InterpTypeError(f"""Cannot add {left_type}s""")
+
+            return (result, left_type, new_state)
 
         case And(left=left, right=right):
             left_value, left_type, new_state = evaluate(left, state)
@@ -158,16 +195,56 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (result, left_type, new_state)
 
         case Or(left=left, right=right):
-            """ TODO: Implement. """
-            pass
+            left_value, left_type, new_state = evaluate(left, state)
+            right_value, right_type, new_state = evaluate(right, new_state)
+
+            if left_type != right_type:
+                raise InterpTypeError(f"""Mismatched types for And:
+            Cannot evaluate {left_type} and {right_type}""")
+            match left_type:
+                case Boolean():
+                    result = left_value or right_value
+                case _:
+                    raise InterpTypeError(
+                        "Cannot perform logical and on non-boolean operands.")
+
+            return (result, left_type, new_state)
+
 
         case Not(expr=expr):
-            """ TODO: Implement. """
-            pass
+            left_value, left_type, new_state = evaluate(left, state)
+            right_value, right_type, new_state = evaluate(right, new_state)
+
+            if left_type != right_type:
+                raise InterpTypeError(f"""Mismatched types for And:
+            Cannot evaluate {left_type} and {right_type}""")
+            match left_type:
+                case Boolean():
+                    result = left_value is not right_value
+                case _:
+                    raise InterpTypeError(
+                        "Cannot perform logical and on non-boolean operands.")
+
+            return (result, left_type, new_state)
+
 
         case If(condition=condition, true=true, false=false):
             """ TODO: Implement. """
-            pass
+            left_value, left_type, new_state = evaluate(left, state)
+            right_value, right_type, new_state = evaluate(right, new_state)
+
+            if left_type != right_type:
+                raise InterpTypeError(f"""Mismatched types for And:
+            Cannot evaluate {left_type} and {right_type}""")
+            match left_type:
+                case Boolean():
+                    result = left_value.__eq__(right_value)
+                case _:
+                    raise InterpTypeError(
+                        "Cannot perform logical and on non-boolean operands.")
+
+            return (result, left_type, new_state)
+
 
         case Lt(left=left, right=right):
             left_value, left_type, new_state = evaluate(left, state)
