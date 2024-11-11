@@ -83,9 +83,10 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (printable_value, printable_type, new_state)
 
         case Sequence(exprs=exprs) | Program(exprs=exprs):
-
-            """ TODO: Implement. """
-            pass
+            last_value, last_type = None, Unit()
+            for expr in exprs:
+                last_value, last_type, state = evaluate(expr, state)
+            return last_value, last_type, state
 
         case Variable(variable_name=variable_name):
             value = state.get_value(variable_name)
