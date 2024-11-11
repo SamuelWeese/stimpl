@@ -277,9 +277,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
                 case _:
                     raise InterpTypeError(
                         f"Cannot perform <= on {left_type} type.")
-            print(left_value)
-            print(right_value)
-            print(result)
             return (result, Boolean(), new_state)
 
         case Gt(left=left, right=right):
