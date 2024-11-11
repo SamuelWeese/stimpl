@@ -219,8 +219,9 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             # Opposite of this should be If, right?
             # BUT THE INTERFACE DOESN"T MATCH!!!
             print("DEBUG ME PLS HELP")
-            if (expr is None): return None
-            if (expr.variable_type == None): return None
+            if expr==Ren():
+                print("DEBUG 2 Double ACTION BOOGALOOO")
+                raise InterpTypeError("Cannot Not this Not.")
             expr_value, expr_type, new_state = evaluate(expr, state)
             if expr_type != Boolean():
                 raise InterpTypeError("Cannot Not this Not.")
