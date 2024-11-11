@@ -171,7 +171,7 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             Cannot add {left_type} to {right_type}""")
 
             match left_type:
-                case Integer() | String() | FloatingPoint():
+                case Integer() | FloatingPoint():
                     result = left_result / right_result
                 case _:
                     raise InterpTypeError(f"""Cannot add {left_type}s""")
@@ -212,6 +212,7 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
 
 
         case Not(expr=expr):
+            print("DEBUG 1")
             left_value, left_type, new_state = evaluate(left, state)
             right_value, right_type, new_state = evaluate(right, new_state)
 
