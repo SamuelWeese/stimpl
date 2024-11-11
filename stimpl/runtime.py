@@ -260,6 +260,7 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             print("LTE IS GO")
             left_value, left_type, new_state = evaluate(left, state)
             right_value, right_type, new_state = evaluate(right, new_state)
+            print("LTE IS GO 2")
 
             result = None
 
