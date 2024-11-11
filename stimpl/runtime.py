@@ -228,9 +228,11 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             if condition_type != Boolean():
                 raise InterpTypeError("Cannot apply 'not' to non-boolean type.")
             if (condition_value):
-                return (true, Boolean(), new_state)
+                true_value, true_type, somestate = evaluate(true, state)
+                return (true_value, true_type, new_state)
             else:
-                return (false, Boolean(), new_state)
+                false_value, false_type, somestate = evaluate(false, state)
+                return (false_value, false_type, new_state)
 
         case Lt(left=left, right=right):
             left_value, left_type, new_state = evaluate(left, state)
