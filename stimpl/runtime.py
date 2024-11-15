@@ -87,6 +87,7 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             print("SEQUENCING")
             print(exprs)
             # TODO COMMENT I THINK THIS IS WRONG
+            # I SAY THIS BECAUSE WE ARE EVALUATING WITHOUT PARSING
             last_value, last_type = None, Unit()
             for expr in exprs:
                 last_value, last_type, state = evaluate(expr, state)
@@ -177,8 +178,10 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             Cannot add {left_type} to {right_type}""")
 
             match left_type:
-                case Integer() | FloatingPoint():
+                case FloatingPoint():
                     result = left_result / right_result
+                case Integer():
+                    result = left_result // right_result
                 case _:
                     raise InterpTypeError(f"""Cannot add {left_type}s""")
 
