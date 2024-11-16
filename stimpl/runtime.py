@@ -91,6 +91,8 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             last_value, last_type, last_state = None, Unit(), state
             for expr in exprs:
                 print(exprs)
+            for expr in exprs:
+                print(exprs)
                 last_value, last_type, last_state = evaluate(expr, state)
             return (last_value, last_type, last_state)
 
