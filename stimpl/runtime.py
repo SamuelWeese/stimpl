@@ -26,11 +26,10 @@ class State(object):
         # TODO Comment
         current_state = self
         while current_state:
-            if current_state.variable_name == variable_name:
-                return current_state.value
             if isinstance(current_state, EmptyState):
                 break
-            current_state = current_state.next_state
+            if current_state.variable_name == variable_name:
+                return current_state.value
         return None
 
     def __repr__(self) -> str:
