@@ -86,12 +86,9 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
         case Sequence(exprs=exprs) | Program(exprs=exprs):
             print("SEQUENCING")
             print(exprs)
-            if (exprs == None) or (len(exprs) == 0):
-                return evaluate(Ren(), state)
             # TODO COMMENT I THINK THIS IS WRONG
             # I SAY THIS BECAUSE WE ARE EVALUATING WITHOUT PARSING
-            last_state = state
-            last_value, last_type = None, Unit()
+            last_value, last_type, last_state = None, Unit(), state
             for expr in exprs:
                 print(exprs)
                 last_value, last_type, last_state = evaluate(expr, state)
@@ -391,10 +388,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
                 if not condition_value:
                     break
                 ignorable_value_1, ignorable_value_2, saved_off_state = evaluate(body,  saved_off_state)
-                iterations = iterations + 1
-                if iterations > 1000:
-                    print("FUCK")
-                    break
             return (None, Unit(), saved_off_state)
 
         case _:
