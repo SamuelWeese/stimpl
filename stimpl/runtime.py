@@ -86,6 +86,8 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
         case Sequence(exprs=exprs) | Program(exprs=exprs):
             print("SEQUENCING")
             print(exprs)
+            if (exprs == None) or (len(exprs) == 0):
+                return evaluate(Ren(), state)
             # TODO COMMENT I THINK THIS IS WRONG
             # I SAY THIS BECAUSE WE ARE EVALUATING WITHOUT PARSING
             last_value, last_type = None, Unit()
