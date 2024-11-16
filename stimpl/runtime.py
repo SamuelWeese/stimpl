@@ -90,11 +90,12 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
                 return evaluate(Ren(), state)
             # TODO COMMENT I THINK THIS IS WRONG
             # I SAY THIS BECAUSE WE ARE EVALUATING WITHOUT PARSING
+            last_state = state
             last_value, last_type = None, Unit()
             for expr in exprs:
                 print(exprs)
-                last_value, last_type, state = evaluate(expr, state)
-            return last_value, last_type, state
+                last_value, last_type, last_state = evaluate(expr, state)
+            return (last_value, last_type, last_state)
 
         case Variable(variable_name=variable_name):
             value = state.get_value(variable_name)
