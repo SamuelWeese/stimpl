@@ -92,6 +92,7 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             # I SAY THIS BECAUSE WE ARE EVALUATING WITHOUT PARSING
             last_value, last_type = None, Unit()
             for expr in exprs:
+                print(exprs)
                 last_value, last_type, state = evaluate(expr, state)
             return last_value, last_type, state
 
