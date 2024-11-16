@@ -391,6 +391,9 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
                 if not condition_value:
                     break
                 ignorable_value_1, ignorable_value_2, saved_off_state = evaluate(body,  saved_off_state)
+                iterations = iterations +1
+                if iterations > 2156:
+                    break
             return (None, Unit(), saved_off_state)
 
         case _:
