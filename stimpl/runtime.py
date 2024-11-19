@@ -384,17 +384,20 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             # TODO COMMENT, specifically why we just cheat this with true
             #(conditions are hard)
             iterations = 1
+            current_any = None
+            current_type = Unit()
             while True:
                 condition_value, condition_type, new_state = evaluate(condition, saved_off_state)
                 if condition_type != Boolean():
                     raise InterpTypeError("Hey silly! Conditions which aren't boolean can't terminate!")
                 if not condition_value:
                     break
-                ignorable_value_1, ignorable_value_2, saved_off_state = evaluate(body,  saved_off_state)
-                iterations = iterations +1
-                if iterations > 2156:
+                iterations = iterations + 1
+                if iterations > 1000:
                     break
-            return (None, Unit(), saved_off_state)
+                current_any, current_type, saved_off_state = evaluate(body,  saved_off_state)
+
+            return (current_any, current_type, saved_off_state)
 
         case _:
             raise InterpSyntaxError("Unhandled!")
