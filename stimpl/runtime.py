@@ -393,7 +393,7 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
                 if not condition_value:
                     break
                 iterations = iterations + 1
-                if iterations > 1000:
+                if iterations > 256:
                     break
                 current_any, current_type, saved_off_state = evaluate(body,  saved_off_state)
 
