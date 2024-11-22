@@ -94,7 +94,7 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
                 print(exprs)
             for expr in exprs:
                 print(exprs)
-                last_value, last_type, last_state = evaluate(expr, state)
+                last_value, last_type, last_state = evaluate(expr, last_state)
             return (last_value, last_type, last_state)
 
         case Variable(variable_name=variable_name):
