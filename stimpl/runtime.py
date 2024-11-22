@@ -30,6 +30,7 @@ class State(object):
                 break
             if current_state.variable_name == variable_name:
                 return current_state.value
+            current_state = current_state.next_state
         return None
 
     def __repr__(self) -> str:
@@ -85,15 +86,9 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (printable_value, printable_type, new_state)
 
         case Sequence(exprs=exprs) | Program(exprs=exprs):
-            print("SEQUENCING")
-            print(exprs)
-            # TODO COMMENT I THINK THIS IS WRONG
-            # I SAY THIS BECAUSE WE ARE EVALUATING WITHOUT PARSING
+            # TODO COMMENT
             last_value, last_type, last_state = None, Unit(), state
             for expr in exprs:
-                print(exprs)
-            for expr in exprs:
-                print(exprs)
                 last_value, last_type, last_state = evaluate(expr, last_state)
             return (last_value, last_type, last_state)
 
