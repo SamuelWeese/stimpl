@@ -386,18 +386,7 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             iterations = 1
             current_any = None
             current_type = Unit()
-            while True:
-                condition_value, condition_type, new_state = evaluate(condition, saved_off_state)
-                if condition_type != Boolean():
-                    raise InterpTypeError("Hey silly! Conditions which aren't boolean can't terminate!")
-                if not condition_value:
-                    break
-                iterations = iterations + 1
-                if iterations > 256:
-                    break
-                current_any, current_type, saved_off_state = evaluate(body,  saved_off_state)
-
-            return (current_any, current_type, saved_off_state)
+            return (current_any, current_type, state)
 
         case _:
             raise InterpSyntaxError("Unhandled!")
