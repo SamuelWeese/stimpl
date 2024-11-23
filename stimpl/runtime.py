@@ -229,7 +229,6 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
 
         case If(condition=condition, true=true, false=false):
             condition_value, condition_type, new_state = evaluate(condition, state)
-            print(condition_value, condition_type, new_state)
             if condition_type != Boolean():
                 raise InterpTypeError("Cannot apply 'not' to non-boolean type.")
             if (condition_value == True):
@@ -373,13 +372,13 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             return (result, Boolean(), new_state)
 
         case While(condition=condition, body=body):
-            saved_off_state = state
-            # TODO COMMENT, specifically why we just cheat this with true
-            #(conditions are hard)
-            iterations = 1
-            current_any = None
-            current_type = Unit()
-            return (current_any, current_type, state)
+            new_state = state
+            while True:
+                condition_value, condition_type, new_state = evaluate(condition, new_state)
+                if condition_type != Boolean():
+                    raise InterpTypeError(f"Can't evaluate {condition_type} in a while loop!")
+                if condition_value != True:
+                    return (condition_value, condition_type, state)
 
         case _:
             raise InterpSyntaxError("Unhandled!")
