@@ -375,9 +375,10 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
             new_state = state
             while True:
                 condition_value, condition_type, new_state = evaluate(condition, new_state)
+                print(f"{condition_value} is cond val")
                 if condition_type != Boolean():
                     raise InterpTypeError(f"Can't evaluate {condition_type} in a while loop!")
-                if condition_value == False:
+                if condition_value != True:
                     return (condition_value, condition_type, state)
                 body_value, body_type, new_state = evaluate(body, new_state)
 
