@@ -379,6 +379,7 @@ def evaluate(expression: Expr, state: State) -> Tuple[Optional[Any], Type, State
                     raise InterpTypeError(f"Can't evaluate {condition_type} in a while loop!")
                 if condition_value != True:
                     return (condition_value, condition_type, state)
+                condition_value, condition_type, new_state = evaluate(body, new_state)
 
         case _:
             raise InterpSyntaxError("Unhandled!")
